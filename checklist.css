@@ -1,0 +1,27 @@
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+}
+.blue {
+  color: #003366;
+  font-size: 20px;
+  font-weight: bold;
+}
+.peoplename{
+text-align:left;
+
+
+}
+th {
+  background-color: #003366;
+  color: #ffffff;
+}
+
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
+
+.center_button{
+  margin:0 auto;
+}
