@@ -80,7 +80,8 @@
                         if ($row["wed_in"] != NULL) $attandance++;
                         if ($row["thu_out"] != NULL) $attandance++;
                         if ($row["thu_in"] != NULL) $attandance++;
-                        $attandance = $attandance / (($nthweek - 1) * 10 + 8)*100;
+                        $attandance = $attandance / (($nthweek - 2) * 10 + 8)*100;
+
                     }
                     if ($today == "Sat") {
                         if ($row["mon_out"] != NULL) $attandance++;
@@ -318,10 +319,10 @@
 ?>
 </form>
 </table>
-<table ><tr><td>
+<table ><tr><td width=1000px>
 <table >
 <tr>
-<th width=600px>Notes</th>
+<th width=400px>Notes</th>
 <th width=180px>Date Time</th>
 </tr>
 <?php
