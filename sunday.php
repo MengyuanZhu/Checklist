@@ -31,35 +31,13 @@ if ($result->num_rows > 0) {
 }
 
 
+foreach ( $timepoints as $timepoint){
+    $sql="update people set ".$timepoint."=null;";
+    echo $sql."<br />";
+}
 
-update people set mon_in=null;
-update people set tue_in=null;
-update people set wed_in=null;
-update people set thu_in=null;
-update people set fri_in=null;
-update people set sat_in=null;
-update people set sun_in=null;
-update people set mon_out=null;
-update people set tue_out=null;
-update people set wed_out=null;
-update people set thu_out=null;
-update people set fri_out=null;
-update people set sat_out=null;
-update people set sun_out=null;
-update people set sat_in="00:00:00" where name="Ke Wang";
-update people set sat_out="00:00:00" where name="Ke Wang";
-update people set sun_in="00:00:00" where name="Ke Wang";
-update people set sun_out="00:00:00" where name="Ke Wang";
-update people set fri_in="00:00:00" where name="Ke Wang";
-update people set fri_out="00:00:00" where name="Ke Wang";
-update people set thu_in="00:00:00" where name="Ke Wang";
-update people set thu_out="00:00:00" where name="Ke Wang";
-update people set tue_in="00:00:00" where name="Ke Wang";
-update people set tue_out="00:00:00" where name="Ke Wang";
-update people set wed_in="00:00:00" where name="Ke Wang";
-update people set wed_out="00:00:00" where name="Ke Wang";
-update people set mon_in="00:00:00" where name="Ke Wang";
-update people set mon_out="00:00:00" where name="Ke Wang";
+
+
 
 if ($wk_day == 1) echo ("first week");
 
