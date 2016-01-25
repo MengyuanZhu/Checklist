@@ -2,7 +2,7 @@
 $comments = "test";
 require ("sql.php");
 
-$wk_day = ceil(date('j') / 7); //nthweek
+$wk_day = ceil(date('j') / 7)-1; //nthweek
 
 ini_set('display_errors', 'on');
 Error_reporting(E_ALL);
@@ -22,6 +22,7 @@ if ($result->num_rows > 0) {
         }
         $attandance = $attandance / 10 * 100;       
         $sql = "UPDATE people SET " . "week".$wk_day . "=\"$attandance\" WHERE name='$personname';";
+        echo $wk_day;
         echo $sql."<br>"; 
         //end of attandance
 
@@ -33,11 +34,16 @@ if ($result->num_rows > 0) {
 
 foreach ( $timepoints as $timepoint){
     $sql="update people set ".$timepoint."=null;";
+    $conn->query($sql);
     echo $sql."<br />";
 }
 
-
-
+$weekends=array("sat_in","sat_out","sun_in","sun_out");
+ foreach ( $weekends as $timepoint){
+    $sql="update people set ".$timepoint."=null;";
+    $conn->query($sql);
+    echo $sql."<br />";
+}
 
 if ($wk_day == 1) echo ("first week");
 

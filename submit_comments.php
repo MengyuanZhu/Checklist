@@ -5,6 +5,7 @@ require 'PHPMailer/PHPMailerAutoload.php';
 
 
 $comments=$_POST["comments"];
+
 require ("sql.php");
     $conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -36,7 +37,10 @@ $mail->isHTML(true);                                  // Set email format to HTM
 $mail->Subject = 'Checklist';
 $mail->Body    = $comments;
 
+	$sql = "INSERT INTO comments (comments_data, datetime) value (\"".$comments. "\",\"" . $now."\")";
 
+
+    $result = $conn->query($sql);
 
 
 
@@ -58,7 +62,11 @@ $mail->Body    = $comments;
 	$sql="select email from people";
 	$result = $conn->query($sql);
 	while($row = $result->fetch_assoc()) {
-	$mail->addAddress($row["email"]);
+	$mail->addAddress($row["email"]);	
+
+	}
+
+
 	if(!$mail->send()) {
     echo 'Message could not be sent.';
     echo 'Mailer Error: ' . $mail->ErrorInfo;
@@ -66,17 +74,12 @@ $mail->Body    = $comments;
     echo 'Message has been sent';
 }
 
-	}
-
 
 
 
 
     }
-	$sql = "INSERT INTO comments (comments_data, datetime) value (\"".$comments. "\",\"" . $now."\")";
 
-
-    $result = $conn->query($sql);
 
 
 

@@ -1,14 +1,14 @@
               <?php
                 function score($row, $today) {
                     
-                    $nthweek = ceil((date('j')-(6-date('N')))/ 7);
+                    $nthweek = ceil((date('j')-(6-date('N')))/ 7)+1;
                     //echo $nthweek;
                     $attandance = 0;
                     for ($i = 1; $i < $nthweek; $i++) {
                         $attandance = $attandance + $row["week" . $i] / 10;
                     }
                     
-                    if ($today == "Mon") $attandance = $attandance / (($nthweek - 1) * 10 + 0);
+                    if ($today == "Mon") $attandance = $attandance / (($nthweek - 1) * 10 + 0)*100;
                     if ($today == "Tue") {
                         if ($row["mon_out"] != NULL) $attandance++;
                         if ($row["mon_in"] != NULL) $attandance++;
