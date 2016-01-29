@@ -1,7 +1,7 @@
               <?php
                 function score($row, $today) {
                     
-                    $nthweek = ceil((date('j')-(6-date('N')))/ 7)+1;
+                    $nthweek = ceil((date('j')-(6-date('N')))/ 7);
                     //echo $nthweek;
                     $attandance = 0;
                     for ($i = 1; $i < $nthweek; $i++) {

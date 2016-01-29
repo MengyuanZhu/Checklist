@@ -19,13 +19,14 @@ foreach ($_POST as $key => $value) {
 
         $sql    = "UPDATE people SET " . $dowMap[$today_number] . "_out" . "=\"$phptime\" WHERE name='$personname';";
         $result = $conn->query($sql);
+        header("Refresh:0; url=index.php");
     } else {
 
         $state  = substr($key, 0, strpos($key, "_"));
         $sql    = "select " . $today . "_" . $state . " from people WHERE name='$personname';";
         $result = $conn->query($sql);
         $row    = $result->fetch_assoc();
-        if ($row[$today . "_" . $state] == null) {
+        if (($row[$today . "_" . $state] == null)&&$row[$today . "_in" ] == null) {
             $sql = "UPDATE people SET " . $today . "_" . $state . "=\"$phptime\" WHERE name='$personname';";
             if ($state == "out") {
                 $sql    = "select " . $today . "_in" . " from people WHERE name='$personname';";

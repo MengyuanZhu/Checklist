@@ -6,6 +6,7 @@
         </title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="checklist.css">
+        <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <body>
 
@@ -246,8 +247,8 @@
 
 <tr>
 
-<td >
-		<table style="width:100%; height:100%;">
+<td id="td_comments" width=70%>
+		<table style="width:100%; height:100%;" >
 		<tr>
 		<th >Notes</th>
 		<th style="width:180px;">Date Time</th>
@@ -260,20 +261,38 @@
 		        echo "<tr><td style='text-align:left;'>" . $row["comments_data"] . "</td><td>" . $row["datetime"] . "</td></tr>";
 		    }
 		}
-		$conn->close();
+		
 		?>
 		</table>
 </td>
 
-<td>
+<td style="background:#FFF">
 
 <form method="post" action="submit_comments.php">
-<table style="width:100%;height:100%; ">
-		<tr><td><textarea name="comments" rows="5" cols="50">Notes</textarea></td></tr>
-		<tr><td><input type=checkbox name="wang" value="wang" />Cc to Dr. Wang</td></tr>
-		<tr><td><input type=checkbox name="everybody" value="everybody" />Cc to everybody</td></tr>
-		<tr><td><input type=submit value="Submit notes"></td></tr>
-</table>
+
+		<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes"></textarea><br />
+		Signature:
+		<select name="author">
+
+		<?php
+				$sql = "SELECT * FROM people order by name";
+                $result = $conn->query($sql);
+                
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {	
+                    	echo "<option>".$row["name"]."</option>";
+
+                    }}
+                    
+                    $conn->close();
+
+		?>
+		</select><br />
+
+		<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang<br />
+		<input type=checkbox name="everybody" value="everybody" />Cc to everybody<br />
+	    <input type=submit value="Submit notes">
+
 </form>
 </td>
 </tr>
@@ -286,10 +305,10 @@
 <td colspan=4></td>
 <td colspan=2>Add or remove a user:</td>
 <td colspan=1>
-<input type=text name="newuser" value="Name" />
+<input type=text name="newuser" placeholder="Name" />
 </td>
 <td colspan=1>
-<input type=text name="email" value="E-mail" />
+<input type=text name="email" placeholder="E-mail" />
 </td>
 <td>
 <input type=radio name="user" value="Add" checked=checked/> Add
@@ -339,12 +358,9 @@
     c=d.getDate();
     var date = new Date(a, parseInt(b) - 1, c), w = date.getDay(), d = date.getDate();
     var nthweek= Math.ceil( (d + 6 - w) / 7 );
-    console.log(nthweek)
-    if (nthweek==4 && b==0)
-    {
-    //document.getElementById("holiday").innerHTML="MLK Day";
-    //document.getElementById("holiday").style.color="#ff8000";
-    }
+    //alert(document.getElementById('td_comments').style.height);
+    document.getElementById("commentsarea").rows=6;
+
 </script>
 </body>
 </html>
