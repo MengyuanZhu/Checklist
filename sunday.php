@@ -22,11 +22,11 @@ if ($result->num_rows > 0) {
         }
         $attandance = $attandance / 10 * 100;       
         $sql = "UPDATE people SET " . "week".$wk_day . "=\"$attandance\" WHERE name='$personname';";
-        echo $wk_day;
+        //echo $wk_day;
         echo $sql."<br>"; 
         //end of attandance
 
-        //$conn->query($sql);
+        $conn->query($sql);
 
     }
 }

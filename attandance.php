@@ -4,6 +4,8 @@
                     $nthweek = ceil((date('j')-(6-date('N')))/ 7);
                     //echo $nthweek;
                     $attandance = 0;
+                    if ($nthweek==0)
+                        $nthweek=5;
                     for ($i = 1; $i < $nthweek; $i++) {
                         $attandance = $attandance + $row["week" . $i] / 10;
                     }

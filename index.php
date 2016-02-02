@@ -9,9 +9,9 @@
         <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <body>
-
         <form id="checklist" method="post" action="check_update.php">
         <table width=85%><tr><td colspan=2>
+
             <table style="width:100%;">
                 <tr>
                     <td colspan=17 class=blue>
@@ -260,8 +260,7 @@
 		    while ($row = $result->fetch_assoc()) {
 		        echo "<tr><td style='text-align:left;'>" . $row["comments_data"] . "</td><td>" . $row["datetime"] . "</td></tr>";
 		    }
-		}
-		
+		}		
 		?>
 		</table>
 </td>
@@ -282,10 +281,8 @@
                     while ($row = $result->fetch_assoc()) {	
                     	echo "<option>".$row["name"]."</option>";
 
-                    }}
-                    
+                    }}                    
                     $conn->close();
-
 		?>
 		</select><br />
 
@@ -300,30 +297,30 @@
 <hr />
 
 <table>
-<form method=post action="user.php">
-<tr>
-<td colspan=4></td>
-<td colspan=2>Add or remove a user:</td>
-<td colspan=1>
-<input type=text name="newuser" placeholder="Name" />
-</td>
-<td colspan=1>
-<input type=text name="email" placeholder="E-mail" />
-</td>
-<td>
-<input type=radio name="user" value="Add" checked=checked/> Add
-</td>
-<td>
-<input type=radio name="user" value="Remove" /> Remove
-</td>
-<td>
-<input type=submit value="User update" />
-</td>
-</tr>
-</form>
+	<form method=post action="user.php">
+		<tr>
+			<td colspan=4></td>
+				<td colspan=2>Add or remove a user:</td>
+			<td colspan=1>
+				<input type=text name="newuser" placeholder="Name" />
+			</td>
+			<td colspan=1>
+				<input type=text name="email" placeholder="E-mail" />
+			</td>
+			<td>
+				<input type=radio name="user" value="Add" checked=checked/> Add
+			</td>
+			<td>
+				<input type=radio name="user" value="Remove" /> Remove
+			</td>
+			<td>
+				<input type=submit value="User update" />
+			</td>
+		</tr>
+	</form>
 </table>
 
-<br /><br />
+<br />
 <script>
     var month = new Array();
     month[0] = "January";
