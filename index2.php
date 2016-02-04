@@ -44,7 +44,8 @@
                 $sql = "SELECT * FROM people order by name";
                 $result = $conn->query($sql);
                 function score($row, $timepoints) {                    
-                    $nthweek = ceil((date('j')-(6-date('N')))/ 7);
+                    $nthweek = date("W") - date("W", strtotime(date("Y-m-01", time()))) ;;
+                    echo $nthweek;
                     $today=date("N");                    
                     $attandance = 0;
 
@@ -99,7 +100,6 @@
 		                        echo "<td></td>";
 		                    }
 		                echo "</tr>";   
-
 				    }
 				}
 			?>

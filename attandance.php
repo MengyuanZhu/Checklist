@@ -1,7 +1,7 @@
               <?php
                 function score($row, $today) {
                     
-                    $nthweek = ceil((date('j')-(6-date('N')))/ 7);
+                    $nthweek = ceil((date('j')-(6-date('N')))/ 7)-1;
                     //echo $nthweek;
                     $attandance = 0;
                     if ($nthweek==0)
@@ -30,7 +30,7 @@
                         if ($row["tue_in"] != NULL) $attandance++;
                         if ($row["wed_out"] != NULL) $attandance++;
                         if ($row["wed_in"] != NULL) $attandance++;
-                        $attandance = $attandance / (($nthweek - 1) * 10 + 6)*100;
+                        $attandance = $attandance / (($nthweek -1) * 10 + 6)*100;
                     }
                     if ($today == "Fri") {
                         if ($row["mon_out"] != NULL) $attandance++;
