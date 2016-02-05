@@ -38,11 +38,12 @@ foreach ($_POST as $key => $value) {
 
                 if ($span <5) {
                     echo "<h1>You even did not stay in the lab for 5 minutes...</h1>";
-                    echo " You have been in the lab for ".$span."min<br /><br />";
+                    
                     echo "<img src='shame-on-you.jpg' alt='shameonyou'>";                   
                 } else {
                     $sql    = "UPDATE people SET " . $today . "_" . $state . "=\"$phptime\" WHERE name='$personname';";
                     $result = $conn->query($sql); 
+                    echo $phptime;
                 }
 
             } 

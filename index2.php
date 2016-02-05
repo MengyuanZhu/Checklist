@@ -79,7 +79,6 @@
 			                        $personname = str_replace(' ', '_', $personname);
 			                        $output = score($row, $timepoints);
 			                        echo "<tr><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check()'/></td>";
-			    	                	
 					                	for($i=0;$i<($today-1)*2;$i++)
 					                		echo "<td>".$row[$timepoints[$i]]."</td>";	                   
 					                    
@@ -116,13 +115,13 @@
 					<th style="width:180px;">Date Time</th>
 					</tr>
 					<?php
-					$sql = "SELECT * FROM comments order by datetime desc limit 5";
-					$result = $conn->query($sql);
-					if ($result->num_rows > 0) {
-					    while ($row = $result->fetch_assoc()) {
-					        echo "<tr><td style='text-align:left;'>" . $row["comments_data"] . "</td><td>" . $row["datetime"] . "</td></tr>";
-					    }
-					}		
+						$sql = "SELECT * FROM comments order by datetime desc limit 5";
+						$result = $conn->query($sql);
+						if ($result->num_rows > 0) {
+						    while ($row = $result->fetch_assoc()) {
+						        echo "<tr><td style='text-align:left;'>" . $row["comments_data"] . "</td><td>" . $row["datetime"] . "</td></tr>";
+						    }
+						}		
 					?>
 					</table>
 				</td>
@@ -189,10 +188,19 @@
 		    var n = month[d.getMonth()];
 		    var currenttime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 		    document.getElementById("title").innerHTML = n + " " + d.getFullYear() + " " + weekday[d.getDay()] + " " + currenttime;
-		    function submit_on_check(namestate) {   
+		    function submit_on_check(namestate) {  
+		    	var state=namestate.split("_")[0];
+		    	var name=namestate.substring(namestate.indexOf("_")+1,namestate.length)
+		    	
+		    	if (state=="in") {
+		    		$('[name='+namestate+']').parent().next().html("<input type=checkbox class=checkthem name=out_"+name+" onclick=submit_on_check(this.name)> Out");
+				}
 				$.post("check_update2.php", $('form#checklist').serialize(),function(response){
 					 $('[name='+namestate+']').parent().html(response);	
 				});
+				
+
+
 		    }
 		    document.getElementById("commentsarea").rows=6;
 		</script>

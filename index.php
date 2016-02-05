@@ -9,6 +9,7 @@
         <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <body>
+    <div style="float:right;"> <a href="index2.php">Beta</a></div>
         <form id="checklist" method="post" action="check_update.php">
         <table width=85%><tr><td colspan=2>
 
