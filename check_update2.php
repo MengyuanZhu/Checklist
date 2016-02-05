@@ -17,6 +17,7 @@ foreach ($_POST as $key => $value) {
         $dowMap = array('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun');
         $sql    = "UPDATE people SET " . $dowMap[$today_number] . "_out" . "=\"$phptime\" WHERE name='$personname';";
         $result = $conn->query($sql);
+        echo $phptime;
     } 
 
     else {
@@ -36,27 +37,19 @@ foreach ($_POST as $key => $value) {
                 $span= (strtotime($phptime) - strtotime($row[$today . "_in"]))/60;
 
                 if ($span <5) {
-
                     echo "<h1>You even did not stay in the lab for 5 minutes...</h1>";
                     echo " You have been in the lab for ".$span."min<br /><br />";
-                    echo "<img src='shame-on-you.jpg' alt='shameonyou'>";
-                    header("Refresh:3; url=index.php");
+                    echo "<img src='shame-on-you.jpg' alt='shameonyou'>";                   
                 } else {
                     $sql    = "UPDATE people SET " . $today . "_" . $state . "=\"$phptime\" WHERE name='$personname';";
-                    $result = $conn->query($sql);
-                    //header("Refresh:0; url=index.php");
-                    echo $phptime;
-                    
+                    $result = $conn->query($sql); 
                 }
 
             } 
             else {      //when it is for in
                 $result = $conn->query($sql);
-                //header("Refresh:0; url=index.php");
                 echo $phptime;
-                 }
-
+            }
         }
-
     }
 }
