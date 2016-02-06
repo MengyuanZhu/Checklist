@@ -22,10 +22,7 @@ th {
 tr:nth-child(even) {background: #CCC}
 tr:nth-child(odd) {background: #FFF}
 
-.center_button{
-  margin:0 auto;
-}
 
-.container{
-  margin:auto;
+a:hover, a:link, a:active, a:visited{
+  color:#fff;
 }

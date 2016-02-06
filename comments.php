@@ -1,17 +1,17 @@
 <?php
 require ("sql.php");
 
-	$sql = "SELECT * FROM comments";
+	$sql = "SELECT * FROM comments order by datetime desc";
     $result = $conn->query($sql);
 
 ?>
 
  <link rel="stylesheet" type="text/css" href="checklist.css">
-<table>
+<table style="width:70%;">
 <tr>
-<th>Comments
+<th>Notes
 </th>
-<th>Date Time
+<th style="width:30%;">Date Time
 </th>
 <?php
 if ($result->num_rows > 0) {
