@@ -78,7 +78,7 @@
 			                        $personname = $row["name"];
 			                        $personname = str_replace(' ', '_', $personname);
 			                        $output = score($row, $timepoints);
-			                        echo "<tr><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check()'/></td>";
+			                        echo "<tr><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox id=mid_$personname name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check(this.name)'/></td>";
 					                	for($i=0;$i<($today-1)*2;$i++)
 					                		echo "<td>".$row[$timepoints[$i]]."</td>";	                   
 					                    
@@ -189,15 +189,29 @@
 		    var currenttime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 		    document.getElementById("title").innerHTML = n + " " + d.getFullYear() + " " + weekday[d.getDay()] + " " + currenttime;
 		    function submit_on_check(namestate) {  
+
 		    	var state=namestate.split("_")[0];
 		    	var name=namestate.substring(namestate.indexOf("_")+1,namestate.length)
 		    	
-		    	if (state=="in") {
-		    		$('[name='+namestate+']').parent().next().html("<input type=checkbox class=checkthem name=out_"+name+" onclick=submit_on_check(this.name)> Out");
-				}
-				$.post("check_update.php", $('form#checklist').serialize(),function(response){
-					 $('[name='+namestate+']').parent().html(response);	
-				});
+		    	if (state=="in" || state=="out"){
+			    	if (state=="in") {
+			    		$('[name='+namestate+']').parent().next().html("<input type=checkbox class=checkthem name=out_"+name+" onclick=submit_on_check(this.name)> Out");
+					}
+					$.post("check_update.php", $('form#checklist').serialize(),function(response){
+						 $('[name='+namestate+']').parent().html(response);	
+					});
+		    	}
+		    	else{//when state is mid
+		    		namestate=namestate.split(" ").join("_");
+		    		name=name.split(" ").join("_");
+		    		console.log('[name=in_'+name+']')
+		    		$.post("check_update.php", $('form#checklist').serialize(),function(response){
+						$('[name=in_'+name+']').parent().prev().html(response);	
+					});
+					var selector="#"+namestate
+					$(selector).prop('checked',false);					
+		    	}
+
 				
 
 
