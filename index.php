@@ -63,6 +63,11 @@
 			                    for ($i=0;$i<($today-1)*2;$i++) {
 			                    	if ($row[$timepoints[$i]] != NULL) $attandance++;
 			                    }
+
+			                    if ($nthweek==1 && $today==1){
+			                    	return "New month";
+			                    } 
+
 			                    $attandance = $attandance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
 			                    
 			                    if ($attandance <=20) $score = "E";
@@ -70,8 +75,10 @@
 			                    if ($attandance > 40 && $attandance <= 60) $score = "C";
 			                    if ($attandance > 60 && $attandance <= 80) $score = "B";
 			                    if ($attandance > 80) $score = "A";                    
-			                    $output = number_format($attandance) . "/" . $score;                    
+			                    $output = number_format($attandance) . "/" . $score;
+			                                       
 			                    return $output;
+
 			                }
 			                if ($result->num_rows > 0) {
 			                    while ($row = $result->fetch_assoc()) {
@@ -204,17 +211,13 @@
 		    	else{//when state is mid
 		    		namestate=namestate.split(" ").join("_");
 		    		name=name.split(" ").join("_");
-		    		console.log('[name=in_'+name+']')
+		    		//console.log('[name=in_'+name+']')
 		    		$.post("check_update.php", $('form#checklist').serialize(),function(response){
 						$('[name=in_'+name+']').parent().prev().html(response);	
 					});
 					var selector="#"+namestate
 					$(selector).prop('checked',false);					
-		    	}
-
-				
-
-
+		    	}	
 		    }
 		    document.getElementById("commentsarea").rows=6;
 		</script>

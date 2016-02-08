@@ -45,9 +45,14 @@ $weekends=array("sat_in","sat_out","sun_in","sun_out");
     echo $sql."<br />";
 }
 
-if ($wk_day == 1) echo ("first week");
+if ($wk_day == 0) 
 
-
+$weekends=array("week1","week2","week3","week4");
+ foreach ( $weekends as $timepoint){
+    $sql="update people set ".$timepoint."=null;";
+    $conn->query($sql);
+    echo $sql."<br />";
+}
 
 
 ?>
