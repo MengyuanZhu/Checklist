@@ -220,6 +220,14 @@
 		    	}	
 		    }
 		    document.getElementById("commentsarea").rows=6;
+		    $("tr").not(':first').hover(
+				function () {
+				    $(this).css("background","#337AB7");
+				}, 
+				function () {
+				    $(this).css("background","");
+				}
+			);
 		</script>
 	</body>
 </html>
