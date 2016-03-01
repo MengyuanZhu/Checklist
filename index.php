@@ -49,9 +49,10 @@
 			                    //echo $nthweek;
 			                    $today=date("N");                    
 			                    $attandance = 0;
+			                    
 
 			                    if ($nthweek==0)
-			                        $nthweek=5; //need to know how many weeks last month
+			                        $nthweek=4; //need to know how many weeks last month
 
 			                    for ($i = 1; $i < $nthweek; $i++) {
 			                        $attandance = $attandance + $row["week" . $i] / 10;
@@ -78,14 +79,15 @@
 			                    $output = number_format($attandance) . "/" . $score;
 			                                       
 			                    return $output;
-
 			                }
+
+
 			                if ($result->num_rows > 0) {
 			                    while ($row = $result->fetch_assoc()) {
 			                        $personname = $row["name"];
 			                        $personname = str_replace(' ', '_', $personname);
 			                        $output = score($row, $timepoints);
-			                        echo "<tr><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox id=mid_$personname name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check(this.name)'/></td>";
+			                        echo "<tr class=namerow><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox id=mid_$personname name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check(this.name)'/></td>";
 					                	for($i=0;$i<($today-1)*2;$i++)
 					                		echo "<td>".$row[$timepoints[$i]]."</td>";	                   
 					                    
@@ -93,14 +95,14 @@
 					                        echo "<td>" . $row[$timepoints[($today-1)*2]] . "</td>";
 					                    }
 					                    else {
-					                        echo "<td><input type=checkbox class='checkthem' name=in_" . $personname . " onClick='submit_on_check(this.name)' />In</td>";
+					                        echo "<td class='itemin'><input type=checkbox name=in_" . $personname . " onClick='submit_on_check(this.name)' /><label>In</label></td>";
 					                    }
 					                    
 					                    if ($row[$timepoints[($today-1)*2+1]] != NULL or ($row[$timepoints[($today-1)*2+1]] == NULL and $row[$timepoints[($today-1)*2]] == NULL)) {
 					                        echo "<td>" . $row[$timepoints[($today-1)*2+1]] . "</td>";
 					                    }
 					                    else {
-					                        echo "<td><input type=checkbox class='checkthem' name=out_" . $personname . " onClick='submit_on_check(this.name)' />Out</td>";
+					                        echo "<td class='itemout'><input type=checkbox class='checkthem' name=out_" . $personname . " onClick='submit_on_check(this.name)' />Out</td>";
 					                    }
 					                    
 					                    for ($i = 0; $i < (7-$today)*2; $i++) {
@@ -219,8 +221,8 @@
 					$(selector).prop('checked',false);					
 		    	}	
 		    }
-		    document.getElementById("commentsarea").rows=6;
-		    $("tr").not(':first').hover(
+		    document.getElementById("commentsarea").rows=5;
+		    $(".namerow").not(':first').hover(
 				function () {
 				    $(this).css("background","#337AB7");
 				}, 
@@ -228,6 +230,7 @@
 				    $(this).css("background","");
 				}
 			);
+
 		</script>
 	</body>
 </html>

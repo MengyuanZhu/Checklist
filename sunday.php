@@ -2,7 +2,7 @@
 $comments = "test";
 require ("sql.php");
 
-$wk_day = ceil(date('j') / 7)-1; //nthweek
+$wk_day = date("W") - date("W", strtotime(date("Y-m-01", time()))) ; //nthweek
 
 ini_set('display_errors', 'on');
 Error_reporting(E_ALL);
@@ -41,7 +41,7 @@ foreach ( $timepoints as $timepoint){
 $weekends=array("sat_in","sat_out","sun_in","sun_out");
  foreach ( $weekends as $timepoint){
     $sql="update people set ".$timepoint."=null;";
-    $conn->query($sql);
+   $conn->query($sql);
     echo $sql."<br />";
 }
 
