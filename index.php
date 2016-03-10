@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <body>        
-        <table style="width:85%;">
+        <table style="width:85%;margin:auto;">
         	<tr>
        			<td colspan=2>
 		        	<form id="checklist" method="post" action="check_update.php">
@@ -116,8 +116,9 @@
 					</form>
 				</td>
 			</tr>
-			<tr>
-				<td id="td_comments" style="width:70%;">
+			</table>
+			<div style="width:85%;margin:auto;">
+				<div id="left">
 					<table style="width:100%; height:100%;" >
 					<tr>
 					<th >Notes (<a href="comments.php" >more...</a>)</th>
@@ -133,9 +134,9 @@
 						}		
 					?>
 					</table>
-				</td>
-				<td style="background:#FFF">
-					<form method="post" action="submit_comments.php">
+				</div>
+				<div id="right">
+					<form method="post" action="submit_comments.php" >
 						<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes"></textarea><br />
 						Signature:
 						<select name="author">
@@ -150,14 +151,13 @@
 				                $conn->close();
 						?>
 						</select><br />
-						<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang<br />
+						<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang 
 						<input type=checkbox name="everybody" value="everybody" />Cc to everybody<br />
 					    <input type=submit value="Submit notes">
 					</form>
-				</td>
-			</tr>
-		</table>
-		<hr />
+				</div>
+				</div>
+		
 		<div style="margin:0 auto;width:50%;"> 
 			<form method=post action="user.php">
 				Add or remove a user:

@@ -2,8 +2,11 @@ table, th, td {
   border: 1px solid white;
   border-collapse: collapse;
   text-align: center;
-  margin: auto;
+  
 }
+
+
+
 .blue {
   color: #003366;
   font-size: 20px;
@@ -25,4 +28,16 @@ tr:nth-child(odd) {background: #FFF}
 
 a:hover, a:link, a:active, a:visited{
   color:#fff;
+}
+
+#left {
+  float: left;
+  width: 65%;
+  overflow: hidden;
+  margin:auto;
+}
+
+#right {
+  overflow: hidden;
+  text-align:center;
 }
