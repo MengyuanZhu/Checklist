@@ -116,10 +116,10 @@
 					</form>
 				</td>
 			</tr>
-			</table>
-			<div style="width:85%;margin:auto;">
-				<div id="left">
-					<table style="width:100%; height:100%;" >
+		</table>
+		<div style="width:85%;margin:auto;">
+			<div id="left">
+				<table style="width:100%; height:100%;" >
 					<tr>
 					<th >Notes (<a href="comments.php" >more...</a>)</th>
 					<th style="width:180px;">Date Time</th>
@@ -133,13 +133,13 @@
 						    }
 						}		
 					?>
-					</table>
-				</div>
-				<div id="right">
-					<form method="post" action="submit_comments.php" >
-						<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes"></textarea><br />
-						Signature:
-						<select name="author">
+				</table>
+			</div>
+			<div id="right">
+				<form method="post" action="submit_comments.php" >
+					<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes"></textarea><br />
+					Signature:
+					<select name="author">
 						<?php
 								$sql = "SELECT * FROM people order by name";
 				                $result = $conn->query($sql);				                
@@ -154,10 +154,10 @@
 						<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang 
 						<input type=checkbox name="everybody" value="everybody" />Cc to everybody<br />
 					    <input type=submit value="Submit notes">
-					</form>
-				</div>
-				</div>
-		
+				</form>
+			</div>
+		</div>
+		<hr>
 		<div style="margin:0 auto;width:50%;"> 
 			<form method=post action="user.php">
 				Add or remove a user:
