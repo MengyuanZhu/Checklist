@@ -137,7 +137,7 @@
 			</div>
 			<div id="right">
 				<form method="post" action="submit_comments.php" >
-					<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes"></textarea><br />
+					<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes" style="width:98%;"></textarea><br />
 					Signature:
 					<select name="author">
 						<?php
