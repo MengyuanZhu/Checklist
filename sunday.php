@@ -2,7 +2,7 @@
 $comments = "test";
 require ("sql.php");
 
-$wk_day = date("W") - date("W", strtotime(date("Y-m-01", time()))) ; //nthweek
+$wk_day = date("W") - date("W", strtotime(date("Y-m-01", time())))-1 ; //nthweek
 
 ini_set('display_errors', 'on');
 Error_reporting(E_ALL);

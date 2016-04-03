@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="checklist.css">
         <link rel="shortcut icon" href="favicon.ico" />
     </head>
-    <body>        
+    <body>
         <table style="width:85%;margin:auto;">
         	<tr>
        			<td colspan=2>
@@ -44,20 +44,20 @@
 			                require ("sql.php");
 			                $sql = "SELECT * FROM people order by name";
 			                $result = $conn->query($sql);
-			                function score($row, $timepoints) {                    
+			                function score($row, $timepoints) {
 			                    $nthweek = date("W") - date("W", strtotime(date("Y-m-01", time()))) ;;
 			                    //echo $nthweek;
-			                    $today=date("N");                    
+			                    $today=date("N");
 			                    $attandance = 0;
-			                    
+
 
 			                    if ($nthweek==0)
 			                        $nthweek=4; //need to know how many weeks last month
 
 			                    for ($i = 1; $i < $nthweek; $i++) {
 			                        $attandance = $attandance + $row["week" . $i] / 10;
-			                    }                    
-			                    
+			                    }
+
 			                    if ($today==7)
 			                    	$today=6;
 
@@ -67,17 +67,17 @@
 
 			                    if ($nthweek==1 && $today==1){
 			                    	return "New month";
-			                    } 
+			                    }
 
 			                    $attandance = $attandance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
-			                    
+
 			                    if ($attandance <=20) $score = "E";
 			                    if ($attandance > 20 && $attandance <= 40) $score = "D";
 			                    if ($attandance > 40 && $attandance <= 60) $score = "C";
 			                    if ($attandance > 60 && $attandance <= 80) $score = "B";
-			                    if ($attandance > 80) $score = "A";                    
+			                    if ($attandance > 80) $score = "A";
 			                    $output = number_format($attandance) . "/" . $score;
-			                                       
+
 			                    return $output;
 			                }
 
@@ -89,29 +89,29 @@
 			                        $output = score($row, $timepoints);
 			                        echo "<tr class=namerow><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox id=mid_$personname name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check(this.name)'/></td>";
 					                	for($i=0;$i<($today-1)*2;$i++)
-					                		echo "<td>".$row[$timepoints[$i]]."</td>";	                   
-					                    
+					                		echo "<td>".$row[$timepoints[$i]]."</td>";
+
 					                    if ($row[$timepoints[($today-1)*2]] != NULL) {
 					                        echo "<td>" . $row[$timepoints[($today-1)*2]] . "</td>";
 					                    }
 					                    else {
-					                        echo "<td class='itemin'><input type=checkbox name=in_" . $personname . " onClick='submit_on_check(this.name)' /><label>In</label></td>";
+					                        echo "<td class='itemin'><input type=checkbox name=in_$personname id=in_$personname onClick='submit_on_check(this.name)' /><label for=in_$personname>In</label></td>";
 					                    }
-					                    
+
 					                    if ($row[$timepoints[($today-1)*2+1]] != NULL or ($row[$timepoints[($today-1)*2+1]] == NULL and $row[$timepoints[($today-1)*2]] == NULL)) {
 					                        echo "<td>" . $row[$timepoints[($today-1)*2+1]] . "</td>";
 					                    }
 					                    else {
-					                        echo "<td class='itemout'><input type=checkbox class='checkthem' name=out_" . $personname . " onClick='submit_on_check(this.name)' />Out</td>";
+					                        echo "<td class='itemout'><input type=checkbox class='checkthem' name=out_$personname id=out_$personname onClick='submit_on_check(this.name)' /><label for=out_$personname>Out</label></td>";
 					                    }
-					                    
+
 					                    for ($i = 0; $i < (7-$today)*2; $i++) {
 					                        echo "<td></td>";
 					                    }
-					                echo "</tr>";   
+					                echo "</tr>";
 							    }
 							}
-						?>			
+						?>
 						</table>
 					</form>
 				</td>
@@ -131,7 +131,7 @@
 						    while ($row = $result->fetch_assoc()) {
 						        echo "<tr><td style='text-align:left;'>" . $row["comments_data"] . "</td><td>" . $row["datetime"] . "</td></tr>";
 						    }
-						}		
+						}
 					?>
 				</table>
 			</div>
@@ -142,34 +142,34 @@
 					<select name="author">
 						<?php
 								$sql = "SELECT * FROM people order by name";
-				                $result = $conn->query($sql);				                
+				                $result = $conn->query($sql);
 				                if ($result->num_rows > 0) {
-				                    while ($row = $result->fetch_assoc()) {	
+				                    while ($row = $result->fetch_assoc()) {
 				                    	echo "<option>".$row["name"]."</option>";
 				                    }
-				                }                    
+				                }
 				                $conn->close();
 						?>
 						</select><br />
-						<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang 
+						<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang
 						<input type=checkbox name="everybody" value="everybody" />Cc to everybody<br />
 					    <input type=submit value="Submit notes">
 				</form>
 			</div>
 		</div>
 		<hr>
-		<div style="margin:0 auto;width:50%;"> 
+		<div style="margin:0 auto;width:50%;">
 			<form method=post action="user.php">
 				Add or remove a user:
-				<input type=text name="newuser" placeholder="Name" />			
-				<input type=text name="email" placeholder="E-mail" />			
-				<input type=radio name="user" value="Add" checked=checked /> Add			
-				<input type=radio name="user" value="Remove" /> Remove			
-				<input type=submit value="User update" />	
+				<input type=text name="newuser" placeholder="Name" />
+				<input type=text name="email" placeholder="E-mail" />
+				<input type=radio name="user" value="Add" checked=checked /> Add
+				<input type=radio name="user" value="Remove" /> Remove
+				<input type=submit value="User update" />
 			</form>
 		</div>
 
-		
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script>
 		    var month = new Array();
@@ -197,17 +197,17 @@
 		    var n = month[d.getMonth()];
 		    var currenttime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 		    document.getElementById("title").innerHTML = n + " " + d.getFullYear() + " " + weekday[d.getDay()] + " " + currenttime;
-		    function submit_on_check(namestate) {  
+		    function submit_on_check(namestate) {
 
 		    	var state=namestate.split("_")[0];
 		    	var name=namestate.substring(namestate.indexOf("_")+1,namestate.length)
-		    	
+
 		    	if (state=="in" || state=="out"){
 			    	if (state=="in") {
 			    		$('[name='+namestate+']').parent().next().html("<input type=checkbox class=checkthem name=out_"+name+" onclick=submit_on_check(this.name)> Out");
 					}
 					$.post("check_update.php", $('form#checklist').serialize(),function(response){
-						 $('[name='+namestate+']').parent().html(response);	
+						 $('[name='+namestate+']').parent().html(response);
 					});
 		    	}
 		    	else{//when state is mid
@@ -215,17 +215,17 @@
 		    		name=name.split(" ").join("_");
 		    		//console.log('[name=in_'+name+']')
 		    		$.post("check_update.php", $('form#checklist').serialize(),function(response){
-						$('[name=in_'+name+']').parent().prev().html(response);	
+						$('[name=in_'+name+']').parent().prev().html(response);
 					});
 					var selector="#"+namestate
-					$(selector).prop('checked',false);					
-		    	}	
+					$(selector).prop('checked',false);
+		    	}
 		    }
 		    document.getElementById("commentsarea").rows=5;
 		    $(".namerow").not(':first').hover(
 				function () {
 				    $(this).css("background","#337AB7");
-				}, 
+				},
 				function () {
 				    $(this).css("background","");
 				}
