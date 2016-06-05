@@ -9,6 +9,10 @@
         <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <body>
+      <div style="position:absolute;top:0px;right:0px;">
+        <a href="index-wang.php" style="color:black">Wang</a>
+      </div>
+
         <table style="width:85%;margin:auto;">
         	<tr>
        			<td colspan=2>
@@ -137,7 +141,7 @@
 			</div>
 			<div id="right">
 				<form method="post" action="submit_comments.php" >
-					<textarea name="comments"  cols="50" id="commentsarea" placeholder="Notes" style="width:98%;"></textarea><br />
+					<textarea name="comments"  rows="8" cols="50" id="commentsarea" placeholder="Notes" style="width:98%;"></textarea><br />
 					Signature:
 					<select name="author">
 						<?php
@@ -157,6 +161,7 @@
 				</form>
 			</div>
 		</div>
+    <br>
 		<hr>
 		<div style="margin:0 auto;width:50%;">
 			<form method=post action="user.php">
@@ -222,7 +227,7 @@
 		    	}
 		    }
 		    document.getElementById("commentsarea").rows=5;
-		    $(".namerow").not(':first').hover(
+		    $(".namerow").hover(
 				function () {
 				    $(this).css("background","#337AB7");
 				},
