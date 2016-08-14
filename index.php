@@ -7,122 +7,125 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="checklist.css">
         <link rel="shortcut icon" href="favicon.ico" />
+
     </head>
-    <body>
-      <div style="position:absolute;top:0px;right:0px;">
-        <a href="index-wang.php" style="color:black">Wang</a>
-      </div>
+    <body> 
+	    <div>
+	        <table style="width:85%;margin:auto;">
+	        	<tr>
+	       			<td colspan=2>
+			        	<form id="checklist" method="post" action="check_update.php">
+				            <table style="width:100%;">
+				                <tr>
+				                    <td colspan=17 class=blue>
+				                        <span id="title"></span>
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <th rowspan=2>Name</th>
+				                    <th rowspan=2><p style="font-size:10px">Accumulated<br /> attandance</p></th>
+				                    <th rowspan=2>Midnight</th>
+				                    <th colspan=2>Monday</th>
+				                    <th colspan=2>Tuesday</th>
+				                    <th colspan=2>Wednesday</th>
+				                    <th colspan=2>Thusday</th>
+				                    <th colspan=2>Friday</th>
+				                    <th colspan=2>Saturday</th>
+				                    <th colspan=2>Sunday</th>
+				                </tr>
+				                <tr>
+				                    <?php
+				                    for ($i = 0; $i < 7; $i++) echo "<th>Time In</th><th>Time Out</th>";
+				                    ?>
+				                </tr>
+				                <?php
+				                $today = date("N");
+				                $timepoints=array("mon_in","mon_out","tue_in","tue_out","wed_in","wed_out","thu_in","thu_out","fri_in","fri_out","sat_in","sat_out","sun_in","sun_out");
+				                ini_set('display_errors', 'on');
+				                Error_reporting(E_ALL);
+				                require ("sql.php");
+				                $sql = "SELECT * FROM people order by name";
+				                $result = $conn->query($sql);
+				                function score($row, $timepoints) {
+				                    $nthweek = date("W") - date("W", strtotime(date("Y-m-00", time()))) ;;
+				                    //echo $nthweek;
 
-        <table style="width:85%;margin:auto;">
-        	<tr>
-       			<td colspan=2>
-		        	<form id="checklist" method="post" action="check_update.php">
-			            <table style="width:100%;">
-			                <tr>
-			                    <td colspan=17 class=blue>
-			                        <span id="title"></span>
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <th rowspan=2>Name</th>
-			                    <th rowspan=2><p style="font-size:10px">Accumulated<br /> attandance</p></th>
-			                    <th rowspan=2>Midnight</th>
-			                    <th colspan=2>Monday</th>
-			                    <th colspan=2>Tuesday</th>
-			                    <th colspan=2>Wednesday</th>
-			                    <th colspan=2>Thusday</th>
-			                    <th colspan=2>Friday</th>
-			                    <th colspan=2>Saturday</th>
-			                    <th colspan=2>Sunday</th>
-			                </tr>
-			                <tr>
-			                    <?php
-			                    for ($i = 0; $i < 7; $i++) echo "<th>Time In</th><th>Time Out</th>";
-			                    ?>
-			                </tr>
-			                <?php
-			                $today = date("N");
-			                $timepoints=array("mon_in","mon_out","tue_in","tue_out","wed_in","wed_out","thu_in","thu_out","fri_in","fri_out","sat_in","sat_out","sun_in","sun_out");
-			                ini_set('display_errors', 'on');
-			                Error_reporting(E_ALL);
-			                require ("sql.php");
-			                $sql = "SELECT * FROM people order by name";
-			                $result = $conn->query($sql);
-			                function score($row, $timepoints) {
-			                    $nthweek = date("W") - date("W", strtotime(date("Y-m-01", time()))) ;;
-			                    //echo $nthweek;
-			                    $today=date("N");
-			                    $attandance = 0;
+				                    $today=date("N");
+				                    $attandance = 0;
 
 
-			                    if ($nthweek==0)
-			                        $nthweek=4; //need to know how many weeks last month
+				                    if ($nthweek==4)
+				                        $nthweek=1; //need to know how many weeks last month
 
-			                    for ($i = 1; $i < $nthweek; $i++) {
-			                        $attandance = $attandance + $row["week" . $i] / 10;
-			                    }
+				                    for ($i = 1; $i < $nthweek; $i++) {
+				                        $attandance = $attandance + $row["week" . $i] / 10;
+				                    }
 
-			                    if ($today==7)
-			                    	$today=6;
+				                    if ($today==7)
+				                    	$today=6;
 
-			                    for ($i=0;$i<($today-1)*2;$i++) {
-			                    	if ($row[$timepoints[$i]] != NULL) $attandance++;
-			                    }
-
-			                    if ($nthweek==1 && $today==1){
-			                    	return "New month";
-			                    }
-
-			                    $attandance = $attandance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
-
-			                    if ($attandance <=20) $score = "E";
-			                    if ($attandance > 20 && $attandance <= 40) $score = "D";
-			                    if ($attandance > 40 && $attandance <= 60) $score = "C";
-			                    if ($attandance > 60 && $attandance <= 80) $score = "B";
-			                    if ($attandance > 80) $score = "A";
-			                    $output = number_format($attandance) . "/" . $score;
-
-			                    return $output;
-			                }
+				                    for ($i=0;$i<($today-1)*2;$i++) {
+				                    	if ($row[$timepoints[$i]] != NULL) $attandance++;
+				                    }
 
 
-			                if ($result->num_rows > 0) {
-			                    while ($row = $result->fetch_assoc()) {
-			                        $personname = $row["name"];
-			                        $personname = str_replace(' ', '_', $personname);
-			                        $output = score($row, $timepoints);
-			                        echo "<tr class=namerow><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox id=mid_$personname name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check(this.name)'/></td>";
-					                	for($i=0;$i<($today-1)*2;$i++)
-					                		echo "<td>".$row[$timepoints[$i]]."</td>";
 
-					                    if ($row[$timepoints[($today-1)*2]] != NULL) {
-					                        echo "<td>" . $row[$timepoints[($today-1)*2]] . "</td>";
-					                    }
-					                    else {
-					                        echo "<td class='itemin'><input type=checkbox name=in_$personname id=in_$personname onClick='submit_on_check(this.name)' /><label for=in_$personname>In</label></td>";
-					                    }
+				                    if ($nthweek<=1 && $today==1){
+				                    	return "New month";
+				                    }
 
-					                    if ($row[$timepoints[($today-1)*2+1]] != NULL or ($row[$timepoints[($today-1)*2+1]] == NULL and $row[$timepoints[($today-1)*2]] == NULL)) {
-					                        echo "<td>" . $row[$timepoints[($today-1)*2+1]] . "</td>";
-					                    }
-					                    else {
-					                        echo "<td class='itemout'><input type=checkbox class='checkthem' name=out_$personname id=out_$personname onClick='submit_on_check(this.name)' /><label for=out_$personname>Out</label></td>";
-					                    }
+				                    $attandance = $attandance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
 
-					                    for ($i = 0; $i < (7-$today)*2; $i++) {
-					                        echo "<td></td>";
-					                    }
-					                echo "</tr>";
-							    }
-							}
-						?>
-						</table>
-					</form>
-				</td>
-			</tr>
-		</table>
-		<div style="width:85%;margin:auto;">
-			<div id="left">
+
+				                    if ($attandance <=20) $score = "E";
+				                    if ($attandance > 20 && $attandance <= 40) $score = "D";
+				                    if ($attandance > 40 && $attandance <= 60) $score = "C";
+				                    if ($attandance > 60 && $attandance <= 80) $score = "B";
+				                    if ($attandance > 80) $score = "A";
+				                    $output = number_format($attandance) . "/" . $score;
+
+				                    return $output;
+				                }
+
+
+				                if ($result->num_rows > 0) {
+				                    while ($row = $result->fetch_assoc()) {
+				                        $personname = $row["name"];
+				                        $personname = str_replace(' ', '_', $personname);
+				                        $output = score($row, $timepoints);
+				                        echo "<tr class=namerow><td class='peoplename'>" . $row["name"] . "</td> <td>" . $output . "</td><td><input type=checkbox id=mid_$personname name=\"mid_" . $row["name"] . "\"  onClick='submit_on_check(this.name)'/></td>";
+						                	for($i=0;$i<($today-1)*2;$i++)
+						                		echo "<td>".$row[$timepoints[$i]]."</td>";
+
+						                    if ($row[$timepoints[($today-1)*2]] != NULL) {
+						                        echo "<td>" . $row[$timepoints[($today-1)*2]] . "</td>";
+						                    }
+						                    else {
+						                        echo "<td class='itemin'><input type=checkbox name=in_$personname id=in_$personname onClick='submit_on_check(this.name)' /><label for=in_$personname>In</label></td>";
+						                    }
+
+						                    if ($row[$timepoints[($today-1)*2+1]] != NULL or ($row[$timepoints[($today-1)*2+1]] == NULL and $row[$timepoints[($today-1)*2]] == NULL)) {
+						                        echo "<td>" . $row[$timepoints[($today-1)*2+1]] . "</td>";
+						                    }
+						                    else {
+						                        echo "<td class='itemout'><input type=checkbox class='checkthem' name=out_$personname id=out_$personname onClick='submit_on_check(this.name)' /><label for=out_$personname>Out</label></td>";
+						                    }
+
+						                    for ($i = 0; $i < (7-$today)*2; $i++) {
+						                        echo "<td></td>";
+						                    }
+						                echo "</tr>";
+								    }
+								}
+							?>
+							</table>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="width:85%;margin:auto;position:relative;display:table;top:20px;" id="commentsBlock">
+			<div id="left" style="">
 				<table style="width:100%; height:100%;" >
 					<tr>
 					<th >Notes (<a href="comments.php" >more...</a>)</th>
@@ -154,25 +157,20 @@
 				                }
 				                $conn->close();
 						?>
-						</select><br />
-						<input type=checkbox name="wang" value="wang" />Cc to Dr. Wang
-						<input type=checkbox name="everybody" value="everybody" />Cc to everybody<br />
-					    <input type=submit value="Submit notes">
+						</select> 						
+					<input type=submit value="Submit">
 				</form>
 			</div>
 		</div>
-    <br>
-		<hr>
-		<div style="margin:0 auto;width:50%;">
-			<form method=post action="user.php">
-				Add or remove a user:
-				<input type=text name="newuser" placeholder="Name" />
-				<input type=text name="email" placeholder="E-mail" />
-				<input type=radio name="user" value="Add" checked=checked /> Add
-				<input type=radio name="user" value="Remove" /> Remove
-				<input type=submit value="User update" />
-			</form>
-		</div>
+   		<div style="margin:0 auto;width:100%;text-align:center">
+   			<br/>
+   		<?php
+   			echo date("Y"); 
+   		?>  
+   		<a href="index-wang.php" style="color:black">Report</a>
+   		<a href="mysql" style="color:black">Admin</a>
+   		<a href="#" style="color:black">History</a>
+   		</div>
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -201,7 +199,7 @@
 		    var d = new Date();
 		    var n = month[d.getMonth()];
 		    var currenttime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-		    document.getElementById("title").innerHTML = n + " " + d.getFullYear() + " " + weekday[d.getDay()] + " " + currenttime;
+		    document.getElementById("title").innerHTML = n + " " + d.getDate() +  ", "+ d.getFullYear()  ;
 		    function submit_on_check(namestate) {
 
 		    	var state=namestate.split("_")[0];
@@ -226,13 +224,21 @@
 					$(selector).prop('checked',false);
 		    	}
 		    }
-		    document.getElementById("commentsarea").rows=5;
+		    $(document).ready(function(){
+		    	console.log($("#commentsBlock").height());
+		    	$("#commentsarea").rows=5;	
+
+		    });
+		   
+		    
 		    $(".namerow").hover(
 				function () {
-				    $(this).css("background","#337AB7");
+				    $(this).css("background","#34495E");
+				    $(this).css("color","#FFF");
 				},
 				function () {
 				    $(this).css("background","");
+				    $(this).css("color","#000");
 				}
 			);
 
