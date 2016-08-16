@@ -27,7 +27,7 @@
 			                $sql = "SELECT * FROM people order by name";
 			                $result = $conn->query($sql);
 			                function score($row, $timepoints) {
-			                    $nthweek = date("W") - date("W", strtotime(date("Y-m-01", time()))) ;;
+			                    $nthweek = date("W") - date("W", strtotime(date("Y-m-00", time()))) ;;
 			                    //echo $nthweek;
 			                    $today=date("N");
 			                    $attandance = 0;

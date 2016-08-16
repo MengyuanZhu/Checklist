@@ -84,6 +84,7 @@
 				                    if ($attandance > 80) $score = "A";
 				                    $output = number_format($attandance) . "/" . $score;
 
+
 				                    return $output;
 				                }
 
@@ -167,9 +168,9 @@
    		<?php
    			echo date("Y"); 
    		?>  
-   		<a href="index-wang.php" style="color:black">Report</a>
+   		<a href="report.php" style="color:black">Report</a>
    		<a href="mysql" style="color:black">Admin</a>
-   		<a href="#" style="color:black">History</a>
+   		<a href="history.php" style="color:black">History</a>
    		</div>
 
 
