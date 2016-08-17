@@ -1,33 +1,15 @@
-table, th, td {
-  
+table, th, td {  
   border-collapse: collapse;
-  text-align: center;
-  
+  text-align: center; 
+  border-left: 1px solid #FFF;
+  border-right: 1px solid #FFF; 
 }
-table td {
-border-left: 1px solid #FFF;
-border-right: 1px solid #FFF;
+
+table{
+  width:100%;
 }
+
 table th {
-border-left: 1px solid #FFF;
-border-right: 1px solid #FFF;
-}
-
-
-
-.blue {
-  color: #34495E;
-  font-size: 20px;
-  font-weight: bold;
-}
-.peoplename{
-text-align:left;
- background-color: #34495E;
-color: #ffffff;
-text-align: center;
-
-}
-th {
   background-color: #34495E;
   color: #ffffff;
 }
@@ -35,20 +17,60 @@ th {
 tr:nth-child(even) {background: #DDD}
 tr:nth-child(odd) {background: #FFF}
 
+.peopleName{
+  text-align:left;
+  background-color: #34495E;
+  color: #ffffff;
+  text-align: center;
+}
 
 a:hover, a:link, a:active, a:visited{
   color:#fff;
 }
 
-#left {
+.link-black{
+  color:black !important;
+}
+
+textarea{
+  width:98%;
+}
+
+.column-left {
   float: left;
   width: 65%;
   overflow: hidden;
   margin:auto;
 }
 
-#right {
+.column-right {
   overflow: hidden;
   text-align:center;
 }
 
+.main-comments {
+  width:85%;
+  margin:auto;
+  position:relative;
+  display:table;
+  top:20px;
+}
+
+.footer{
+  margin:0 auto;
+  width:100%;
+  text-align:center;
+}
+
+.main{
+  margin:auto;
+  width:85%;
+}
+
+.cell-comments{
+ text-align:left;
+}
+
+.cell-datetime{
+  width:180px; 
+}
