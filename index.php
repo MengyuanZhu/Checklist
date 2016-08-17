@@ -33,7 +33,7 @@
 				<tr>
 					<?php
 					for ($i = 0; $i < 7; $i++) echo "<th>Time In</th><th>Time Out</th>";
-						?>
+					?>
 				</tr>
 				<?php
 				$today = date("N");
@@ -43,39 +43,40 @@
 				require ("sql.php");
 				$sql = "SELECT * FROM people order by name";
 				$result = $conn->query($sql);
+
+				//To calculate attendance
 				function score($row, $timepoints) {
-					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time()))) ;;
-				                    //echo $nthweek;
+					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time())));				                    
 
 					$today=date("N");
-					$attandance = 0;
+					$attendance = 0;
 
 					if ($nthweek==4)
 				        $nthweek=1; //need to know how many weeks last month
 
 				    for ($i = 1; $i < $nthweek; $i++) {
-				    	$attandance = $attandance + $row["week" . $i] / 10;
+				    	$attendance = $attendance + $row["week" . $i] / 10;
 				    }
 
 				    if ($today==7)
 				    	$today=6;//sunday output the same as Saturday
 
 				    for ($i=0;$i<($today-1)*2;$i++) {
-				    	if ($row[$timepoints[$i]] != NULL) $attandance++;
+				    	if ($row[$timepoints[$i]] != NULL) $attendance++;
 				    }
 
 				    if ($nthweek<=1 && $today==1){
 				    	return "New month";
 				    }
 
-				    $attandance = $attandance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
+				    $attendance = $attendance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
 
-				    if ($attandance <=20) $score = "E";
-				    if ($attandance > 20 && $attandance <= 40) $score = "D";
-				    if ($attandance > 40 && $attandance <= 60) $score = "C";
-				    if ($attandance > 60 && $attandance <= 80) $score = "B";
-				    if ($attandance > 80) $score = "A";
-				    $output = number_format($attandance) . "/" . $score;
+				    if ($attendance <=20) $score = "E";
+				    if ($attendance > 20 && $attendance <= 40) $score = "D";
+				    if ($attendance > 40 && $attendance <= 60) $score = "C";
+				    if ($attendance > 60 && $attendance <= 80) $score = "B";
+				    if ($attendance > 80) $score = "A";
+				    $output = number_format($attendance) . "/" . $score;
 
 				    return $output;
 				}
