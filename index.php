@@ -5,6 +5,7 @@
 		Checklist in Dr. Wang's lab
 	</title>
 	<meta charset="utf-8">
+	<meta http-equiv="expires" content="0">
 	<link rel="stylesheet" type="text/css" href="checklist.css">
 	<link rel="shortcut icon" href="favicon.ico" />
 
