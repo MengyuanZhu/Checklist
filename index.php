@@ -5,7 +5,9 @@
 		Checklist in Dr. Wang's lab
 	</title>
 	<meta charset="utf-8">
-	<meta http-equiv="expires" content="0">
+	<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+    <meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
 	<link rel="stylesheet" type="text/css" href="checklist.css">
 	<link rel="shortcut icon" href="favicon.ico" />
 
