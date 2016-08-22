@@ -42,7 +42,7 @@
 				                ini_set('display_errors', 'on');
 				                Error_reporting(E_ALL);
 				                require ("sql.php");
-				                $sql = "SELECT * FROM history order by name";
+				                $sql = "SELECT * FROM history  where date is null order by name";
 				                $result = $conn->query($sql);
 				               
 
