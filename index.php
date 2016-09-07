@@ -49,17 +49,22 @@
 
 				//To calculate attendance
 				function score($row, $timepoints) {
-					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time())));				                    
-
+					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time())));				 
+					$nthweek=5;//today is special 9/1/2016
+					$nthweek=1;
 					$today=date("N");
 					$attendance = 0;
+					
 
-					if ($nthweek==4)
-				        $nthweek=1; //need to know how many weeks last month
+
+					//if ($nthweek==4)
+				      //  $nthweek=1; //need to know how many weeks last month
 
 				    for ($i = 1; $i < $nthweek; $i++) {
 				    	$attendance = $attendance + $row["week" . $i] / 10;
 				    }
+
+
 
 				    if ($today==7)
 				    	$today=6;//sunday output the same as Saturday
@@ -67,12 +72,25 @@
 				    for ($i=0;$i<($today-1)*2;$i++) {
 				    	if ($row[$timepoints[$i]] != NULL) $attendance++;
 				    }
+				    $attendance = $attendance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
+
+					$LD = date('d', strtotime("september ".date("Y")." first monday"));  //labor day date
+					//if holiday, skip the first day
+				    if ($nthweek==1 && (date("d")-$LD)==($today-1)){
+				    	$attendance=0;
+				    	for ($i=2;$i<($today-1)*2;$i++) {
+				    		if ($row[$timepoints[$i]] != NULL) $attendance++;
+				    	}	
+				    	$attendance = $attendance / (($nthweek - 1) * 10 + ($today-2)*2)*100;
+
+				    }    
+					
 
 				    if ($nthweek<=1 && $today==1){
 				    	return "New month";
 				    }
 
-				    $attendance = $attendance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
+				    
 
 				    if ($attendance <=20) $score = "E";
 				    if ($attendance > 20 && $attendance <= 40) $score = "D";
@@ -80,7 +98,6 @@
 				    if ($attendance > 60 && $attendance <= 80) $score = "B";
 				    if ($attendance > 80) $score = "A";
 				    $output = number_format($attendance) . "/" . $score;
-
 				    return $output;
 				}
 
