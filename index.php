@@ -12,7 +12,7 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 
 </head>
-<body> 
+<body>
 	<div class="main">
 		<form id="checklist" method="post" action="check_update.php">
 			<table>
@@ -47,14 +47,15 @@
 				$sql = "SELECT * FROM people order by name";
 				$result = $conn->query($sql);
 
+
 				//To calculate attendance
 				function score($row, $timepoints) {
-					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time())));				 
-					$nthweek=5;//today is special 9/1/2016
-					$nthweek=1;
+					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time())));
+
 					$today=date("N");
 					$attendance = 0;
-					
+
+
 
 
 					//if ($nthweek==4)
@@ -80,17 +81,17 @@
 				    	$attendance=0;
 				    	for ($i=2;$i<($today-1)*2;$i++) {
 				    		if ($row[$timepoints[$i]] != NULL) $attendance++;
-				    	}	
+				    	}
 				    	$attendance = $attendance / (($nthweek - 1) * 10 + ($today-2)*2)*100;
 
-				    }    
-					
+				    }
+
 
 				    if ($nthweek<=1 && $today==1){
 				    	return "New month";
 				    }
 
-				    
+
 
 				    if ($attendance <=20) $score = "E";
 				    if ($attendance > 20 && $attendance <= 40) $score = "D";
@@ -168,7 +169,7 @@
 					}
 					$conn->close();
 					?>
-				</select> 						
+				</select>
 				<input type=submit value="Submit">
 			</form>
 		</div>
@@ -176,14 +177,14 @@
 	<div class="footer">
 		<br/>
 		<?php
-		echo date("Y"); 
-		?>  
+		echo date("Y");
+		?>
 		<a href="report.php" class="link-black">Report</a>
-		<a href="mysql" class="link-black">Admin</a>
+		<a href="phpmyadmin" class="link-black">Admin</a>
 		<a href="history.php" class="link-black">History</a>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="checklist.js"></script>
 </body>
 </html>

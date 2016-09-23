@@ -7,6 +7,11 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="checklist.css">
         <link rel="shortcut icon" href="favicon.ico" />
+        <style type="text/css">
+        a:link {
+        	color:black;
+        }
+        </style>
 
     </head>
     <body> 
@@ -22,7 +27,7 @@
 				                    </td>
 				                </tr>
 				                <tr>
-				                    <th rowspan=2>Name</th>				                    
+				                    <th rowspan=2>Name</th>			                    
 				                    <th colspan=2>Monday</th>
 				                    <th colspan=2>Tuesday</th>
 				                    <th colspan=2>Wednesday</th>
@@ -42,7 +47,11 @@
 				                ini_set('display_errors', 'on');
 				                Error_reporting(E_ALL);
 				                require ("sql.php");
-				                $sql = "SELECT * FROM history  where date is null order by name";
+				                $date_raw=date('Y-m-d');
+
+				                $date= (date('Y-m-d', strtotime('-2 day', strtotime($date_raw))));
+				                echo $date;
+				                $sql = "SELECT * FROM history  where date='2016-9-5' order by name";
 				                $result = $conn->query($sql);
 				               
 
@@ -68,73 +77,24 @@
 		</div>
 		
    		<div style="margin:0 auto;width:100%;text-align:center">
+   			
+   			<a href="" style="color:black">Previous</a>
+   			<a href="" style="color:black">Next</a>
+   			<br />
    			<br/>
-   		<?php
-   			echo date("Y"); 
-   		?>  
-   		<a href="report.php" style="color:black">Report</a>
-   		<a href="mysql" style="color:black">Admin</a>
-   		<a href="index.php" style="color:black">Home</a>
+	   		<?php
+	   			echo date("Y"); 
+	   		?>  
+	   		<a href="report.php" style="color:black">Report</a>
+	   		<a href="mysql" style="color:black">Admin</a>
+	   		<a href="index.php" style="color:black">Home</a>
    		</div>
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script>
-		    var month = new Array();
-		    month[0] = "January";
-		    month[1] = "February";
-		    month[2] = "March";
-		    month[3] = "April";
-		    month[4] = "May";
-		    month[5] = "June";
-		    month[6] = "July";
-		    month[7] = "August";
-		    month[8] = "September";
-		    month[9] = "October";
-		    month[10] = "November";
-		    month[11] = "December";
-		    var weekday = new Array(7);
-		    weekday[0] = "Sunday";
-		    weekday[1] = "Monday";
-		    weekday[2] = "Tuesday";
-		    weekday[3] = "Wednesday";
-		    weekday[4] = "Thursday";
-		    weekday[5] = "Friday";
-		    weekday[6] = "Saturday";
-		    var d = new Date();
-		    var n = month[d.getMonth()];
-		    var currenttime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-		    document.getElementById("title").innerHTML ="History"  ;
-		    function submit_on_check(namestate) {
-
-		    	var state=namestate.split("_")[0];
-		    	var name=namestate.substring(namestate.indexOf("_")+1,namestate.length)
-
-		    	if (state=="in" || state=="out"){
-			    	if (state=="in") {
-			    		$('[name='+namestate+']').parent().next().html("<input type=checkbox class=checkthem name=out_"+name+" onclick=submit_on_check(this.name)> Out");
-					}
-					$.post("check_update.php", $('form#checklist').serialize(),function(response){
-						 $('[name='+namestate+']').parent().html(response);
-					});
-		    	}
-		    	else{//when state is mid
-		    		namestate=namestate.split(" ").join("_");
-		    		name=name.split(" ").join("_");
-		    		//console.log('[name=in_'+name+']')
-		    		$.post("check_update.php", $('form#checklist').serialize(),function(response){
-						$('[name=in_'+name+']').parent().prev().html(response);
-					});
-					var selector="#"+namestate
-					$(selector).prop('checked',false);
-		    	}
-		    }
-		    $(document).ready(function(){
-		    	console.log($("#commentsBlock").height());
-		    	$("#commentsarea").rows=5;	
-
-		    });
-		   
+		    //document.getElementById("title").innerHTML ="History"  ;
+		    
 		    
 		    $(".namerow").hover(
 				function () {
