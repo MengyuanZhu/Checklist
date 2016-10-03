@@ -14,7 +14,7 @@
         </style>
 
     </head>
-    <body> 
+    <body>
 	    <div>
 	        <table style="width:85%;margin:auto;">
 	        	<tr>
@@ -27,7 +27,7 @@
 				                    </td>
 				                </tr>
 				                <tr>
-				                    <th rowspan=2>Name</th>			                    
+				                    <th rowspan=2>Name</th>
 				                    <th colspan=2>Monday</th>
 				                    <th colspan=2>Tuesday</th>
 				                    <th colspan=2>Wednesday</th>
@@ -49,18 +49,16 @@
 				                require ("sql.php");
 				                $date_raw=date('Y-m-d');
 
-				                $date= (date('Y-m-d', strtotime('-2 day', strtotime($date_raw))));
-				                echo $date;
-				                $sql = "SELECT * FROM history  where date='2016-9-5' order by name";
+				                //$date= (date('Y-m-d', strtotime('-1 day', strtotime($date_raw))));
+				                echo "2016-09-26 ~ 2016-10-02";
+				                $sql = "SELECT * FROM history  where date='2016-10-03' order by name";
 				                $result = $conn->query($sql);
-				               
-
 
 				                if ($result->num_rows > 0) {
 				                    while ($row = $result->fetch_assoc()) {
 				                        $personname = $row["name"];
 				                        $personname = str_replace(' ', '_', $personname);
-				                        
+
 				                        echo "<tr class=namerow><td class='peoplename'>" . $row["name"] . "</td>";
 						                	for($i=0;$i<14;$i++)
 						                		echo "<td>".$row[$timepoints[$i]]."</td>";
@@ -75,16 +73,17 @@
 				</tr>
 			</table>
 		</div>
-		
+
    		<div style="margin:0 auto;width:100%;text-align:center">
-   			
-   			<a href="" style="color:black">Previous</a>
+
+   			<!--<a href="" style="color:black">Previous</a>
    			<a href="" style="color:black">Next</a>
+      -->
    			<br />
    			<br/>
 	   		<?php
-	   			echo date("Y"); 
-	   		?>  
+	   			echo date("Y");
+	   		?>
 	   		<a href="report.php" style="color:black">Report</a>
 	   		<a href="mysql" style="color:black">Admin</a>
 	   		<a href="index.php" style="color:black">Home</a>
@@ -94,8 +93,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script>
 		    //document.getElementById("title").innerHTML ="History"  ;
-		    
-		    
+
+
 		    $(".namerow").hover(
 				function () {
 				    $(this).css("background","#34495E");
