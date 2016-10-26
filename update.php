@@ -7,6 +7,10 @@ $wk_day = date("W") - date("W", strtotime(date("Y-m-00", time())))-1 ; //nthweek
 ini_set('display_errors', 'on');
 Error_reporting(E_ALL);
 
+$sql = "INSERT  INTO HISTORY (name,date, mon_in, mon_out, tue_in, tue_out, wed_in,wed_out,thu_in,thu_out, fri_in,fri_out, sat_in,sat_out, sun_in,sun_out) SELECT name,". date('Y-m-d', strtotime( 'monday next week'))." mon_in, mon_out, tue_in, tue_out, wed_in,wed_out,thu_in,thu_out, fri_in,fri_out, sat_in,sat_out, sun_in,sun_out FROM people;";
+echo $sql;
+$result = $conn->query($sql);
+
 
 $sql = "SELECT * FROM people order by name";
 $result = $conn->query($sql);
