@@ -50,8 +50,9 @@
 				                $date_raw=date('Y-m-d');
 
 				                //$date= (date('Y-m-d', strtotime('-1 day', strtotime($date_raw))));
-				                echo "2016-09-26 ~ 2016-10-02";
-				                $sql = "SELECT * FROM history  where date='2016-10-03' order by name";
+				                echo date( 'Y-m-d', strtotime( 'monday last week' ) )." ~ ".date( 'Y-m-d', strtotime( 'sunday last week' ) );
+				                $sql = "SELECT * FROM history  where date='".date( 'Y-m-d', strtotime( 'monday this week' ) )."' order by name";
+                        //echo $sql;
 				                $result = $conn->query($sql);
 
 				                if ($result->num_rows > 0) {
@@ -93,8 +94,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script>
 		    //document.getElementById("title").innerHTML ="History"  ;
-
-
 		    $(".namerow").hover(
 				function () {
 				    $(this).css("background","#34495E");

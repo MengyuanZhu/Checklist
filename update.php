@@ -10,7 +10,7 @@ Error_reporting(E_ALL);
 
 $sql = "SELECT * FROM people order by name";
 $result = $conn->query($sql);
-$timepoints=array("tue_in","tue_out","wed_in","wed_out","thu_in","thu_out","fri_in","fri_out");
+$timepoints=array("mon_in","mon_out","tue_in","tue_out","wed_in","wed_out","thu_in","thu_out","fri_in","fri_out");
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $personname = $row["name"];
@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
         foreach($timepoints as $timepoint){
             if ($row[$timepoint] != NULL) $attandance++;
         }
-        $attandance = $attandance / 8 * 100;
+        $attandance = $attandance / 10 * 100;
         $sql = "UPDATE people SET " . "week".$wk_day . "=\"$attandance\" WHERE name='$personname';";
         //echo $wk_day;
         echo $sql."<br>";
@@ -53,6 +53,4 @@ $weekends=array("week1","week2","week3","week4");
     $conn->query($sql);
     echo $sql."<br />";
 }
-
-
 ?>

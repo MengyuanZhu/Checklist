@@ -39,7 +39,9 @@
 					?>
 				</tr>
 				<?php
+				date_default_timezone_set('America/New_York');
 				$today = date("N");
+			
 				$timepoints=array("mon_in","mon_out","tue_in","tue_out","wed_in","wed_out","thu_in","thu_out","fri_in","fri_out","sat_in","sat_out","sun_in","sun_out");
 				ini_set('display_errors', 'on');
 				Error_reporting(E_ALL);
@@ -47,16 +49,13 @@
 				$sql = "SELECT * FROM people order by name";
 				$result = $conn->query($sql);
 
-
 				//To calculate attendance
-				function score($row, $timepoints) {
+				function score($row, $timepoints)
+				{
 					$nthweek = date("W") - date("W", strtotime(date("Y-m-00", time())));
 
 					$today=date("N");
 					$attendance = 0;
-
-
-
 
 					//if ($nthweek==4)
 				      //  $nthweek=1; //need to know how many weeks last month
@@ -65,14 +64,15 @@
 				    	$attendance = $attendance + $row["week" . $i] / 10;
 				    }
 
-
-
 				    if ($today==7)
 				    	$today=6;//sunday output the same as Saturday
-
+							if ($nthweek<=1 && $today==1){
+					    	return "New month";
+					    }
 				    for ($i=0;$i<($today-1)*2;$i++) {
 				    	if ($row[$timepoints[$i]] != NULL) $attendance++;
 				    }
+
 				    $attendance = $attendance / (($nthweek - 1) * 10 + ($today-1)*2)*100;
 
 					$LD = date('d', strtotime("september ".date("Y")." first monday"));  //labor day date
@@ -83,13 +83,8 @@
 				    		if ($row[$timepoints[$i]] != NULL) $attendance++;
 				    	}
 				    	$attendance = $attendance / (($nthweek - 1) * 10 + ($today-2)*2)*100;
-
 				    }
 
-
-				    if ($nthweek<=1 && $today==1){
-				    	return "New month";
-				    }
 
 
 

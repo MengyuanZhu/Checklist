@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/New_York');
 $today        = strtolower(date("D"));
 $today_number = date("N");
 ini_set('display_errors', 'on');
@@ -18,15 +18,15 @@ foreach ($_POST as $key => $value) {
         $sql    = "UPDATE people SET " . $dowMap[$today_number] . "_out" . "=\"$phptime\" WHERE name='$personname';";
         $result = $conn->query($sql);
         echo $phptime;
-    } 
+    }
 
     else {
 
         $state  = substr($key, 0, strpos($key, "_"));
         $sql    = "SELECT * from people WHERE name='$personname';";
         $result = $conn->query($sql);
-        $row    = $result->fetch_assoc();        
-        
+        $row    = $result->fetch_assoc();
+
         if ($row[$today . "_" . $state] == null) {
             $sql = "UPDATE people SET " . $today . "_" . $state . "=\"$phptime\" WHERE name='$personname';";
 
@@ -38,15 +38,15 @@ foreach ($_POST as $key => $value) {
 
                 if ($span <5) {
                     echo "<h1>You even did not stay in the lab for 5 minutes...</h1>";
-                    
-                    echo "<img src='shame-on-you.jpg' alt='shameonyou'>";                   
+
+                    echo "<img src='shame-on-you.jpg' alt='shameonyou'>";
                 } else {
                     $sql    = "UPDATE people SET " . $today . "_" . $state . "=\"$phptime\" WHERE name='$personname';";
-                    $result = $conn->query($sql); 
+                    $result = $conn->query($sql);
                     echo $phptime;
                 }
 
-            } 
+            }
             else {      //when it is for in
                 $result = $conn->query($sql);
                 echo $phptime;
